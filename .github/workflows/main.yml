@@ -21,7 +21,7 @@ jobs:
         run: dotnet tool install -g vpk
 
       - name: Package with Velopack
-        run: vpk pack -u PadKeyApp -v ${{ steps.get-version.outputs.version }} -p publish
+        run: vpk pack --packId padkey --packVersion ${{ steps.get-version.outputs.version }} --packDir .\publish --mainExe PadKey.exe
 
       - name: Prepare upload folder
         run: |
