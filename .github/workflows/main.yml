@@ -42,7 +42,6 @@ jobs:
             ./output/PadKey-${{ steps.get-version.outputs.version }}-full.nupkg
             ./output/PadKey-win-Portable.zip
             ./output/PadKey-win-Setup.exe
-            ./output/PadKey-win-Setup.exe
             ./output/RELEASES
             ./output/assets.win.json
             ./output/releases.win.json
