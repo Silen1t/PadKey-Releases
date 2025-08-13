@@ -24,7 +24,7 @@ jobs:
         run: dotnet tool install -g vpk
 
       - name: Package with Velopack
-        run: vpk pack --packId PadKey --packVersion "${{ steps.get-version.outputs.version }}" --packDir publish --mainExe PadKey.exe --outputDir output
+        run: vpk pack --packId PadKey --packVersion "${{ steps.get-version.outputs.version }}" --packDir publish --mainExe PadKey.exe --outputDir output --packTitle "PadKey" --packAuthors "Yousef Alsaleh, aka Silent" --shortcuts "Desktop,StartMenu”
 
       - name: List files after pack
         run: ls -R output
