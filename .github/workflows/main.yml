@@ -1,0 +1,53 @@
+name: Deploy to GitHub Releases
+
+permissions:
+  contents: write  # Needed to create/upload release assets
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-to-github-releases:
+    runs-on: windows-latest
+
+    steps:
+      # 1. Checkout the repository that contains your published files
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Get version from your csproj (or any other version source)
+      - name: Get Version from Project File
+        id: get-version
+        shell: bash
+        run: |
+          version=$(grep -oE '<Version>[^<]+' PadKey/PadKey.csproj | sed 's/<Version>//')
+          echo "version=$version" >> $GITHUB_OUTPUT
+
+      # 3. Install Velopack CLI
+      - name: Install Velopack CLI
+        run: dotnet tool install -g vpk
+
+      # 4. Download the last release from the releases repo (for delta updates)
+      - name: Download Previous Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          vpk download github --repoUrl https://github.com/YourUser/YourReleasesRepo --token $GITHUB_TOKEN
+
+      # 5. Package your already built files (make sure they are inside ./publish)
+      - name: Package with Velopack
+        run: |
+          vpk pack -u PadKeyApp -v ${{ steps.get-version.outputs.version }} -p publish
+
+      # 6. Upload to releases repository
+      - name: Upload Release to Releases Repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          vpk upload github --repoUrl https://github.com/YourUser/YourReleasesRepo \
+                           --publish \
+                           --releaseName "PadKey ${{ steps.get-version.outputs.version }}" \
+                           --tag v${{ steps.get-version.outputs.version }} \
+                           --token $GITHUB_TOKEN
