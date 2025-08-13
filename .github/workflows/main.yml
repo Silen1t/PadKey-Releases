@@ -15,13 +15,17 @@ jobs:
 
       - name: Read version from file
         id: get-version
-        run: echo "version=$(cat version.txt)" >> $GITHUB_OUTPUT
+        shell: pwsh
+        run: |
+          $version = Get-Content version.txt | Out-String -NoNewline
+          echo "version=$version" >> $env:GITHUB_OUTPUT
 
       - name: Install Velopack CLI
         run: dotnet tool install -g vpk
 
       - name: Package with Velopack
-        run: vpk pack --packId padkey --packVersion ${{ steps.get-version.outputs.version }} --packDir .\publish --mainExe PadKey.exe
+        run: vpk pack --packId padkey --packVersion "${{ steps.get-version.outputs.version }}" --packDir publish --mainExe PadKey.exe
+
 
       - name: Prepare upload folder
         run: |
