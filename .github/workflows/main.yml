@@ -38,7 +38,7 @@ jobs:
           release_name: v${{ steps.get-version.outputs.version }}
           draft: false
           prerelease: false
-          token: ${{ secrets.GH_TOKEN }}
+          auth-token: ${{ secrets.GH_TOKEN }}
 
       # Upload all Velopack files to the release
       - name: Upload release assets
