@@ -32,7 +32,7 @@ jobs:
       # Create a GitHub Release
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v2
+        uses: actions/create-release@v1
         with:
           tag_name: v${{ steps.get-version.outputs.version }}
           release_name: v${{ steps.get-version.outputs.version }}
@@ -45,22 +45,22 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./output/padkey-1.1.0-full.nupkg
-          asset_name: padkey-1.1.0-full.nupkg
+          asset_path: ./output/PadKey-${{ steps.get-version.outputs.version }}-full.nupkg
+          asset_name: PadKey-${{ steps.get-version.outputs.version }}-full.nupkg
           asset_content_type: application/octet-stream
 
       - name: Upload portable zip
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./output/padkey-win-Portable.zip
-          asset_name: padkey-win-Portable.zip
+          asset_path: ./output/PadKey-win-Portable.zip
+          asset_name: PadKey-win-Portable.zip
           asset_content_type: application/zip
 
       - name: Upload setup exe
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./output/padkey-win-Setup.exe
-          asset_name: padkey-win-Setup.exe
+          asset_path: ./output/PadKey-win-Setup.exe
+          asset_name: PadKey-win-Setup.exe
           asset_content_type: application/vnd.microsoft.portable-executable
