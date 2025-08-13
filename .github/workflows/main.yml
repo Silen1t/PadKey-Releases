@@ -32,7 +32,7 @@ jobs:
       - name: Prepare upload folder
         run: |
           mkdir upload
-          if (Test-Path .vpk) { cp -r .vpk/* upload/ } else { echo "No .vpk folder found"; exit 1 }
+          Copy-Item -Path output/* -Destination upload/ -Recurse
 
       - name: Push Velopack files to release repo
         run: |
