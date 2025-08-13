@@ -50,6 +50,7 @@ jobs:
           asset_path: ./output/PadKey-${{ steps.get-version.outputs.version }}-full.nupkg
           asset_name: PadKey-${{ steps.get-version.outputs.version }}-full.nupkg
           asset_content_type: application/octet-stream
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Upload portable zip
         uses: actions/upload-release-asset@v1
@@ -58,6 +59,7 @@ jobs:
           asset_path: ./output/PadKey-win-Portable.zip
           asset_name: PadKey-win-Portable.zip
           asset_content_type: application/zip
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Upload setup exe
         uses: actions/upload-release-asset@v1
@@ -66,3 +68,4 @@ jobs:
           asset_path: ./output/PadKey-win-Setup.exe
           asset_name: PadKey-win-Setup.exe
           asset_content_type: application/vnd.microsoft.portable-executable
+          token: ${{ secrets.GH_TOKEN }}
