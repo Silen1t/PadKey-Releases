@@ -24,13 +24,15 @@ jobs:
         run: dotnet tool install -g vpk
 
       - name: Package with Velopack
-        run: vpk pack --packId padkey --packVersion "${{ steps.get-version.outputs.version }}" --packDir publish --mainExe PadKey.exe
+        run: vpk pack --packId padkey --packVersion "${{ steps.get-version.outputs.version }}" --packDir publish --mainExe PadKey.exe --outDir output
 
+      - name: List files after pack
+        run: ls -R
 
       - name: Prepare upload folder
         run: |
           mkdir upload
-          cp -r .vpk/* upload/
+          if (Test-Path .vpk) { cp -r .vpk/* upload/ } else { echo "No .vpk folder found"; exit 1 }
 
       - name: Push Velopack files to release repo
         run: |
@@ -42,5 +44,5 @@ jobs:
           git add .
           git commit -m "Velopack installer v${{ steps.get-version.outputs.version }}"
           git branch -M main
-          git remote add origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/<YOUR_USER>/<YOUR_RELEASES_REPO>.git
+          git remote add origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/Silen1t/PadKey-Releases.git
           git push -f origin main
