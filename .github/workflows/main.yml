@@ -38,5 +38,5 @@ jobs:
           git add .
           git commit -m "Velopack installer v${{ steps.get-version.outputs.version }}"
           git branch -M main
-          git remote add origin https://x-access-token:${{ secrets.RELEASES_REPO_TOKEN }}@github.com/<YOUR_USER>/<YOUR_RELEASES_REPO>.git
+          git remote add origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/<YOUR_USER>/<YOUR_RELEASES_REPO>.git
           git push -f origin main
