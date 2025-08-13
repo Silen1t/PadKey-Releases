@@ -38,7 +38,8 @@ jobs:
           release_name: v${{ steps.get-version.outputs.version }}
           draft: false
           prerelease: false
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
+          opts.auth: ${{ secrets.GH_TOKEN }}
 
 
       # Upload all Velopack files to the release
