@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout built files repo
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Read version from file
@@ -24,25 +24,43 @@ jobs:
         run: dotnet tool install -g vpk
 
       - name: Package with Velopack
-        run: vpk pack --packId padkey --packVersion "${{ steps.get-version.outputs.version }}" --packDir publish --mainExe PadKey.exe --outputDir output
+        run: vpk pack --packId PadKey --packVersion "${{ steps.get-version.outputs.version }}" --packDir publish --mainExe PadKey.exe --outputDir output
 
       - name: List files after pack
-        run: ls -R
+        run: ls -R output
 
-      - name: Prepare upload folder
-        run: |
-          mkdir upload
-          Copy-Item -Path output/* -Destination upload/ -Recurse
+      # Create a GitHub Release
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v2
+        with:
+          tag_name: v${{ steps.get-version.outputs.version }}
+          release_name: v${{ steps.get-version.outputs.version }}
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GH_TOKEN }}
 
-      - name: Push Velopack files to release repo
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      # Upload all Velopack files to the release
+      - name: Upload release assets
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./output/padkey-1.1.0-full.nupkg
+          asset_name: padkey-1.1.0-full.nupkg
+          asset_content_type: application/octet-stream
 
-          cd upload
-          git init
-          git add .
-          git commit -m "Velopack installer v${{ steps.get-version.outputs.version }}"
-          git branch -M main
-          git remote add origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/Silen1t/PadKey-Releases.git
-          git push -f origin main
+      - name: Upload portable zip
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./output/padkey-win-Portable.zip
+          asset_name: padkey-win-Portable.zip
+          asset_content_type: application/zip
+
+      - name: Upload setup exe
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./output/padkey-win-Setup.exe
+          asset_name: padkey-win-Setup.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
