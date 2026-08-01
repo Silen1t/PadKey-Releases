@@ -9,7 +9,7 @@
       <pubDate>Sat, 01 Aug 2026 22:14:58 +03:00</pubDate>
       <sparkle:version>2.0.1</sparkle:version>
       <sparkle:shortVersionString>2.0.1</sparkle:shortVersionString>
-      <enclosure url="https://github.com/Silen1t/PadKey-Releases/releases/download/v2.0.0/PadKey.exe" sparkle:version="2.0.1" sparkle:shortVersionString="2.0.1" length="87293328" sparkle:os="windows" type="application/octet-stream" sparkle:criticalUpdate="false" sparkle:signature="Vax3jJ/Wv+MYXUMuwCt6rjL1poueHtEI7CyQWu3TX3H7SZf7pJuRiN5aAx9ELrzjEHhQWu4+asNDmhs+doIJBQ==" />
+      <enclosure url="https://github.com/Silen1t/PadKey-Releases/releases/download/v2.0.1/PadKey-Setup.exe" sparkle:version="2.0.1" sparkle:shortVersionString="2.0.1" length="87293328" sparkle:os="windows" type="application/octet-stream" sparkle:criticalUpdate="false" sparkle:signature="Vax3jJ/Wv+MYXUMuwCt6rjL1poueHtEI7CyQWu3TX3H7SZf7pJuRiN5aAx9ELrzjEHhQWu4+asNDmhs+doIJBQ==" />
     </item>
   </channel>
 </rss>
