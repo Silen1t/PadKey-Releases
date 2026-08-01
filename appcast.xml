@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>PadKey</title>
+    <description>Most recent changes with links to updates</description>
+    <language>en</language>
+    <item>
+      <title>PadKey 2.0.1</title>
+      <pubDate>Sat, 01 Aug 2026 22:14:58 +03:00</pubDate>
+      <sparkle:version>2.0.1</sparkle:version>
+      <sparkle:shortVersionString>2.0.1</sparkle:shortVersionString>
+      <enclosure url="https://github.com/Silen1t/PadKey-Releases/releases/download/v2.0.0/PadKey.exe" sparkle:version="2.0.1" sparkle:shortVersionString="2.0.1" length="87293328" sparkle:os="windows" type="application/octet-stream" sparkle:criticalUpdate="false" sparkle:signature="Vax3jJ/Wv+MYXUMuwCt6rjL1poueHtEI7CyQWu3TX3H7SZf7pJuRiN5aAx9ELrzjEHhQWu4+asNDmhs+doIJBQ==" />
+    </item>
+  </channel>
+</rss>
